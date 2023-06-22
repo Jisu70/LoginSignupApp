@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Signup Page</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+
+      .signup-box {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 40px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .signup-box h2 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .form-control {
+        border-radius: 4px;
+      }
+
+      .btn-primary {
+        border-radius: 4px;
+        padding: 10px 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="signup-box">
+      <h2>Sign Up</h2>
+      <form>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="Enter your name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="username">User Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            placeholder="Enter user name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="Enter your password"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary" id="btn">Sign Up</button>
+      </form>
+    </div>
+    <div class="signup-box">
+      <a href="http://localhost:3000/existing-user" class="text-primary">Already have an account? Log in</a>
+    </div>
+    <script>
+      const API_URL = `http://localhost:3000`;
+console.log("hello script");
+async function signUpUser() {
+  const name = document.getElementById("name");
+  const username = document.getElementById("username");
+  const password = document.getElementById("password");
+  if (name.value.trim() === "" || username.value.trim() === "") {
+    alert("Please fill in all the required fields.");
+    return;
+  }
+  const userData = {
+    name: name.value,
+    username: username.value,
+    password: password.value,
+  };
+  try {
+    const response = await axios.post(`${API_URL}/savedata`, userData);
+    console.log(response)
+    if (response.status === 200) {
+      alert("Signup User Successfully ");
+      window.location.href = "http://localhost:3000/existing-user"
+    }else{
+      alert("Problem in Signup ");
+    }
+  } catch (error) {
+    console.log(" Error Is :", error);
+  }
+}
+
+const botam = document.getElementById("btn");
+botam.addEventListener("click", (event) => {
+  event.preventDefault();
+  signUpUser();
+});
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
